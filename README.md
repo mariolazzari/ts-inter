@@ -399,3 +399,239 @@ console.log(admin1.getFullName());
 console.log(admin1.getAdminStatus());
 console.log(Admin.maxAge);
 ```
+
+### What is enum
+
+A way to define a set of named constants—useful when a variable can only have one value from a fixed list
+
+```ts
+enum Status {
+  Active,
+  Inactive,
+  Pending,
+}
+
+let stat: Status = Status.Active;
+console.log(stat); // Output: 0
+
+stat = Status.Pending;
+console.log(stat); // Output: 2
+
+interface User {
+  name: string;
+  status: Status;
+}
+
+const user: User = {
+  name: "Alice",
+  status: Status.Inactive,
+};
+```
+
+### What are generics
+
+Generics let you write reusable, type-safe code that works with many types instead of just one
+
+```ts
+const addId = <T>(obj: T): T & { id: string } => {
+  const id = Math.random().toString(16);
+  return { ...obj, id };
+};
+
+type User<T> = {
+  name: string;
+  data: T;
+};
+
+const user: User<{ meta: string }> = {
+  name: "Mario",
+  data: {
+    meta: "meta",
+  },
+};
+
+const userWithId = addId(user);
+```
+
+### What is tuple
+
+Fixed-length arrays where each position has a specific type: useful when the order matters
+
+```ts
+const names: [string, string, string] = ["Mario", "Mariarosa", "Maria"];
+const failedResponse: [string, number] = ["Not found", 404];
+
+console.log(names[0]);
+```
+
+### What is optional prop
+
+Property that may or may not exist on an object
+
+```ts
+type User = {
+  firstName: string;
+  lastName: string;
+  age?: number;
+};
+
+const mario: User = {
+  firstName: "Mario",
+  lastName: "Lazzari",
+  age: 50,
+};
+
+const maria: User = {
+  firstName: "Maria",
+  lastName: "Lazzari",
+};
+
+console.log(mario.age?.toFixed(0));
+```
+
+### How to type dynamic keys
+
+```ts
+type StringMap = {
+  [key: string]: string;
+};
+
+const labels: StringMap = {
+  save: "Save",
+  cancel: "Cancel",
+};
+
+type StringRecord = Record<string, string>;
+
+const labels2: StringRecord = {
+  save: "Save",
+  cancel: "Cancel",
+};
+
+interface User {
+  id: number;
+  name: string;
+  age: number;
+}
+
+const users: User[] = [
+  { id: 1, name: "Jack", age: 20 },
+  { id: 2, name: "John", age: 30 },
+  { id: 3, name: "Mike", age: 50 },
+];
+
+const columns: Array<keyof User> = ["id", "name", "age"];
+
+const result = users.map(user => {
+  return columns.map(column => {
+    return user[column];
+  });
+});
+
+console.log("result", result);
+```
+
+### What is index signature
+
+A way to type objects that have unknown or dynamic property names
+
+```ts
+type Names = {
+  [key: string]: string;
+};
+
+const names: Names = {
+  mario: "Mario",
+  maria: "Maria",
+};
+```
+
+### What is record type
+
+Utility type used to create an object type where:
+
+- keys come from a specific set
+- values all have the same type
+
+It’s a clean, readable alternative to index signatures.
+
+```ts
+type Names = Record<string, string>;
+
+const names: Names = {
+  mario: "Mario",
+  maria: "Maria",
+};
+
+type NumericRecord = Record<string, number>;
+
+const salary: NumericRecord = {
+  annual: 50000,
+  bonus: 10000,
+};
+```
+
+### What is omit and pick?
+
+Pick and Omit are utility types used to create new types from existing ones by selecting or excluding properties
+
+```ts
+type User = {
+  id: string;
+  name: string;
+  age: number;
+};
+
+type Profile = Omit<User, "age">;
+type Name = Omit<User, "id" | "age">;
+
+type Staff = Pick<User, "id" | "age">;
+```
+
+### What is readonly
+
+Modifier that makes a property immutable after it’s set: you can read it, but you cannot reassign it
+
+```ts
+type User = {
+  id: number;
+  name: string;
+};
+
+type ReadonlyUser = Readonly<User>;
+```
+
+### What is partial
+
+Utility type that makes all properties of a type optional.
+
+```ts
+type User = {
+  id: number;
+  name: string;
+};
+
+const mario: Partial<User> = {
+  name: "Mario",
+};
+```
+
+### What is required?
+
+Utility type that makes all properties of a type required
+
+```ts
+type User = {
+  id: string;
+  name?: string;
+  age?: number;
+};
+
+const mario: Required<User> = {
+  id: "1",
+  name: "Mario",
+  age: 50,
+};
+```
+
+### TypeScript with React
