@@ -237,6 +237,36 @@ type DataState = LoadingState | FailedState | SuccessState;
 
 ### Narrow union
 
-```ts
+Type narrowing in TypeScript is how you reduce a broad type (like a union) into a more specific type so you can safely use type-specific properties or methods.
 
+```ts
+const getState = (state: DataState) => {
+  switch (state.state) {
+    case "loading":
+      return "Loading...";
+
+    case "failed":
+      return `Error: ${state.error}`;
+
+    case "success":
+      return `Title: ${state.data.title}`;
+  }
+};
+
+const formatDate = (date: Date | string): string => {
+  if (date instanceof Date) {
+    return date.toUTCString();
+  }
+  return new Date(date).toUTCString();
+};
+```
+
+### What is void
+
+Type used to indicate that a function does not return a meaningful value
+
+```ts
+const log = (message: string): void => {
+  console.log(message);
+};
 ```

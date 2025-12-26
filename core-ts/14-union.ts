@@ -26,4 +26,4 @@ type SuccessState = {
   };
 };
 
-type DataState = LoadingState | FailedState | SuccessState;
+export type DataState = LoadingState | FailedState | SuccessState;
