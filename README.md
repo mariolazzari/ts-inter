@@ -270,3 +270,71 @@ const log = (message: string): void => {
   console.log(message);
 };
 ```
+
+### What is never
+
+Type that represents values that never occur.
+It’s used when something cannot happen or a function never successfully returns.
+
+```ts
+const throwError = (message: string): never => {
+  console.log(message);
+  throw new Error(message);
+};
+
+// exhaustiveness check using never
+const handleResult = (result: Result) => {
+  switch (result) {
+    case "success":
+      return "Operation was successful";
+
+    case "error":
+      return "An error occurred";
+
+    default:
+      return throwError(`Unhandled case: ${result}`);
+  }
+};
+```
+
+### What is any
+
+Turns off type checking for a value.
+
+```ts
+const all = (val: any) => {
+  return val;
+};
+```
+
+### What is unknown
+
+Type that represents a value whose type is not known yet, but unlike any, it is type-safe.
+
+```ts
+let vAny: any = 10;
+let vUnknown: unknown = 10;
+
+vAny = true;
+vAny = "string";
+vAny = [];
+
+vUnknown = true;
+vUnknown = "string";
+vUnknown = [];
+
+// invalid assignments
+// let s1: string = vUnknown;
+// let n1: number = vUnknown + 10;
+// vUnknown.toUpperCase();
+
+const printUnknown = (val: unknown) => {
+  if (typeof val === "string") {
+    console.log(val.toUpperCase());
+    return;
+  }
+  console.log("Not a string:", val);
+};
+```
+
+### DOM in TypeScript
