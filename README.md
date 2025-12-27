@@ -745,3 +745,41 @@ File that contains only type information
 ### What is map file
 
 File that maps compiled/transpiled JavaScript back to the original source code
+
+## Advanced TypeScript
+
+### Function overloading
+
+```ts
+function great(person: string): string;
+function great(person: string[]): string[];
+
+function great(person: unknown): unknown {
+  if (typeof person === "string") {
+    return `Hello, ${person}!`;
+  }
+
+  if (Array.isArray(person)) {
+    return person.map(name => `Hello, ${name}!`);
+  }
+
+  throw new Error("Invalid input");
+}
+```
+
+### What is extends?
+
+- classes (inheritance)
+- extends in interfaces
+- extends in generics
+- extends in conditional types
+
+```ts
+type StringFromType<T> = T extends string ? string : never;
+
+type TextType = StringFromType<"hello">; // string
+type NumberType = StringFromType<42>; // never
+
+type NullableString = string | null | undefined;
+type NonNullableString<T> = T extends string ? T : never;
+```
