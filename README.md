@@ -833,5 +833,43 @@ const todo: MyReadonly<Todo> = {
 ### Do it yourself: first
 
 ```ts
+type First<T extends any[]> = T extends [] ? never : T[0];
 
+type arr1 = ["a", "b", "c"];
+type arr2 = [3, 2, 1];
+
+type first1 = First<arr1>;
+type first2 = First<arr2>;
+type first3 = First<[]>;
+
+type First2<T extends any[]> = T["length"] extends 0 ? never : T[0];
+```
+
+### Do it yourself: tuple length
+
+```ts
+type Len<T extends any[]> = T["length"];
+
+type toyota = ["aygo", "yaris", "corolla"];
+type fender = ["Stratocaster", "Telecaster"];
+
+type toyotaLen = Len<toyota>;
+type fenderLen = Len<fender>;
+```
+
+### Do it yourself: if
+
+```ts
+type If<T extends boolean, A, B> = T extends true ? A : B;
+
+type A = If<true, "a", "b">;
+type B = If<false, "a", "b">;
+```
+
+### Do it yourself: concat
+
+```ts
+type Concat<T extends unknown[], U extends unknown[]> = [...T, ...U];
+
+type Result = Concat<[1], [2]>;
 ```
