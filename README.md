@@ -635,3 +635,113 @@ const mario: Required<User> = {
 ```
 
 ### TypeScript with React
+
+```tsx
+import type { ComponentProps } from "react";
+
+type ButtonProps = ComponentProps<"button">;
+
+const Button = ({ children, ...props }: ButtonProps) => {
+  return <button {...props}>{children}</button>;
+};
+
+export default Button;
+```
+
+### What is type inference
+
+Process where the compiler automatically figures out the type of a variable, function return, or expression without you explicitly specifying it.
+
+```ts
+const x = 1;
+const y = "hello";
+const z = [1, 2, 3];
+
+function add(a: number, b: number) {
+  return a + b;
+}
+```
+
+### What is literal type?
+
+Type that represents exact values, rather than general type
+
+```ts
+const zero = 0;
+const falsy = false;
+
+type Easing = "ease-in" | "ease-out" | "ease-in-out";
+type CardinalDirection = "North" | "East" | "South" | "West";
+
+function animate(ease: Easing) {
+  switch (ease) {
+    case "ease-in":
+      console.log("Animating with ease-in");
+      break;
+    case "ease-out":
+      console.log("Animating with ease-out");
+      break;
+    case "ease-in-out":
+      console.log("Animating with ease-in-out");
+      break;
+  }
+}
+```
+
+### What is tsconfig
+
+Configuration file for the TypeScript compiler: it tells TypeScript how to compile your code and how strict it should be
+[Docs](https://www.typescriptlang.org/tsconfig/)
+
+```json
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "lib": ["DOM", "ES2020"],
+    "jsx": "react-jsx",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "strict": true,
+    "skipLibCheck": true,
+    "noEmit": true
+  },
+  "include": ["src"]
+}
+```
+
+### Core components
+
+#### Language
+
+- Type syntax (string, number, union, interface, etc.)
+- Type system rules (narrowing, inference, generics)
+- Extensions on top of JavaScript
+
+#### Compiler
+
+- Type-checks your code
+- Transforms TypeScript → JavaScript
+- Reports errors
+
+#### Service
+
+- Autocomplete
+- Inline errors
+- Go-to-definition
+- Rename symbol
+- Refactoring
+- Hover type info
+
+### How do TypeScript transpile
+
+```sh
+tsc --help
+```
+
+### What is d.ts file
+
+File that contains only type information
+
+### What is map file
+
+File that maps compiled/transpiled JavaScript back to the original source code
